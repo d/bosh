@@ -13,17 +13,17 @@ describe Bosh::OpenStackCloud::Cloud do
     end
 
     it "raises ArgumentError on initializing with blank options" do
-    	options = Hash.new("options")
-    	expect { 
-    		Bosh::OpenStackCloud::Cloud.new(options)
-    	}.to raise_error(ArgumentError, /Invalid OpenStack configuration/)
+      options = Hash.new("options")
+      expect {
+        Bosh::OpenStackCloud::Cloud.new(options)
+      }.to raise_error(ArgumentError, /Invalid OpenStack configuration/)
     end
 
     it "raises ArgumentError on initializing with non Hash options" do
-    	options = "this is a string"
-    	expect { 
-    		Bosh::OpenStackCloud::Cloud.new(options)
-    	}.to raise_error(ArgumentError, /Invalid OpenStack configuration/)
+      options = "this is a string"
+      expect {
+        Bosh::OpenStackCloud::Cloud.new(options)
+      }.to raise_error(ArgumentError, /Invalid OpenStack configuration/)
     end
 
     it "raises a CloudError exception if cannot connect to the OpenStack Compute API" do
@@ -43,7 +43,7 @@ describe Bosh::OpenStackCloud::Cloud do
       }.to raise_error(Bosh::Clouds::CloudError,
                        "Unable to connect to the OpenStack Image Service API. Check task debug log for details.")
     end
-    
+
     it "should implement ssl_verify_peer settings" do
       Fog::Compute.stub(:new)
       Fog::Image.stub(:new)
@@ -52,6 +52,5 @@ describe Bosh::OpenStackCloud::Cloud do
       Bosh::Clouds::Provider.create(:openstack, ssl_options)
       Excon.defaults[:ssl_verify_peer].should be_false
     end
-    
   end
 end

@@ -26,14 +26,14 @@ module Bosh::Registry
           :openstack_region => @openstack_properties["region"],
           :openstack_endpoint_type => @openstack_properties["endpoint_type"]
         }
-        
+
         set_ssl_verify_peer(@openstack_properties)
       end
 
       def openstack
         @openstack ||= Fog::Compute.new(@openstack_options)
       end
-      
+
       def validate_options(cloud_config)
         unless cloud_config.has_key?("openstack") &&
             cloud_config["openstack"].is_a?(Hash) &&
@@ -71,7 +71,6 @@ module Bosh::Registry
           Excon.defaults[:ssl_verify_peer] = false
         end
       end
-        
     end
 
   end
